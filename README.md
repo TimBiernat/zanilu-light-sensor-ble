@@ -4,3 +4,5 @@ Micro:bit coding lesson to demonstrate collecting light intensity data, then upl
 Uses bluetooth Makecode extension.
 
 [Try me](https://TimBiernat.github.io/zanilu-light-sensor-ble)
+
+![alt text](./blocks.png)
