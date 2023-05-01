@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>Zanilu BLE micro:bit lesson</title>
+    <script type="text/javascript" src="https://thegecko.github.io/microbit-web-bluetooth/dist/microbit.umd.js">
+    </script>
+</head>
+
+<body>
+    <button id="connect">Fetch Light Data</button>
+    <div id="log" style="white-space: pre"></div>
+    <script>
+        const logEl = document.getElementById("log");
+        const log = (message) => logEl.innerHTML = `${message}\n${logEl.innerHTML}`;
+        const logJson = (message) => log(JSON.stringify(message, null, 2));
+        const eventHandler = event => log(event.detail);
+
+        document.getElementById("connect").onclick = async () => {
+            const device = await microbit.requestMicrobit(window.navigator.bluetooth);
+            if (device) {
+                const services = await microbit.getServices(device);
+                if (services.deviceInformationService) {
+                }
+                if (services.uartService) {
+                    services.uartService.addEventListener("receiveText", eventHandler);
+                    await services.uartService.send(new Uint8Array([36])); // $
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
